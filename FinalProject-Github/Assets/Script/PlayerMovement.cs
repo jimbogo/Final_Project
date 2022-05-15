@@ -36,15 +36,40 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movement = transform.right * x + transform.forward * z;
 
-        if(Input.GetKey(KeyCode.Space)){
+        if(Input.GetKey(KeyCode.LeftShift)){
             controller.Move(movement * run_speed * Time.deltaTime );
         }else{
             controller.Move(movement * walk_speed * Time.deltaTime );
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            InvokeRepeating("ShakeCharacter", 0.1f, 0.5f);
+            InvokeRepeating("ShakeCharacter2", 0.2f, 0.5f);
+        }
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
+            InvokeRepeating("ShakeCharacter", 0f, 0.005f);
+            InvokeRepeating("ShakeCharacter2", 0.01f, 0.005f);
+        }
+        else
+        {
+            CancelInvoke("ShakeCharacter");
+            CancelInvoke("ShakeCharacter2");
         }
         
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void ShakeCharacter()
+    {
+        velocity.y = 1f;
+    }
+    void ShakeCharacter2()
+    {
+        velocity.y = -3f;
     }
 }

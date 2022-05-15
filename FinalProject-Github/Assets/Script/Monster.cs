@@ -9,21 +9,21 @@ public class Monster : MonoBehaviour
 
     public GameObject player;
 
-    public float Attack_distance = 4f;
+    public float Attack_distance = 30f;
 
     // prepare for WayPoint 
-    public List<Transform> waypoints = new  List<Transform>();
-    private Transform TargetWaypoint;
-    private int TargetWaypointIndex = 0;
-    private int LastWaypointIndex;
-    private float MiniDistance = 1f;
+    // public List<Transform> waypoints = new  List<Transform>();
+    // private Transform TargetWaypoint;
+    // private int TargetWaypointIndex = 0;
+    // private int LastWaypointIndex;
+    // private float MiniDistance = 1f;
 
     void Start()
     {
         Mob = GetComponent<NavMeshAgent>();
 
-        LastWaypointIndex = waypoints.Count-1;
-        TargetWaypoint = waypoints[TargetWaypointIndex];
+        // LastWaypointIndex = waypoints.Count-1;
+        // TargetWaypoint = waypoints[TargetWaypointIndex];
     }
 
     // Update is called once per frame
@@ -41,31 +41,32 @@ public class Monster : MonoBehaviour
             Mob.SetDestination(newPos); 
 
         // if the player is not in the attack range then patrol around the map.
-        }else{
+        }
+        // else{
             
-            float Waypoint_distance = Vector3.Distance(transform.position, TargetWaypoint.position);
-            Checkdistancetowaypoint(Waypoint_distance);
+        //     float Waypoint_distance = Vector3.Distance(transform.position, TargetWaypoint.position);
+        //     Checkdistancetowaypoint(Waypoint_distance);
 
-            Mob.SetDestination(TargetWaypoint.position);
-        }
+        //     Mob.SetDestination(TargetWaypoint.position);
+        // }
     }
 
-    void Checkdistancetowaypoint(float currentdistance){
+    // void Checkdistancetowaypoint(float currentdistance){
 
-        if(currentdistance <= MiniDistance){
+    //     if(currentdistance <= MiniDistance){
 
-            TargetWaypointIndex += 1;
-            UpdateTargetPoint();
-        }
-    }
+    //         TargetWaypointIndex += 1;
+    //         UpdateTargetPoint();
+    //     }
+    // }
 
-    void UpdateTargetPoint(){
+    // void UpdateTargetPoint(){
 
-        if(TargetWaypointIndex > LastWaypointIndex){
+    //     if(TargetWaypointIndex > LastWaypointIndex){
 
-            TargetWaypointIndex = 0;
-        }
+    //         TargetWaypointIndex = 0;
+    //     }
 
-        TargetWaypoint = waypoints[TargetWaypointIndex];
-    }
+    //     TargetWaypoint = waypoints[TargetWaypointIndex];
+    // }
 }
