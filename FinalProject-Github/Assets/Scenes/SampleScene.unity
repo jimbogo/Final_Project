@@ -1740,7 +1740,7 @@ MonoBehaviour:
     m_Bits: 64
   groundDistance: 0.4
   walk_speed: 2
-  run_speed: 6
+  run_speed: 5
   gravity: -19.6
 --- !u!143 &22357886
 CharacterController:
@@ -15973,6 +15973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 373731200}
   - component: {fileID: 373731202}
+  - component: {fileID: 373731203}
   - component: {fileID: 373731201}
   m_Layer: 0
   m_Name: Monster3
@@ -16006,7 +16007,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -16025,7 +16026,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373731199}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d14b48317de4164da7b8f5edb3be168, type: 3}
   m_Name: 
@@ -16037,6 +16038,19 @@ MonoBehaviour:
   - {fileID: 1289522710}
   - {fileID: 853654463}
   - {fileID: 392853767}
+--- !u!114 &373731203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373731199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cea8bba189c08c459184a027cee1a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 22357883}
 --- !u!1001 &375679054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34839,6 +34853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 777325990}
   - component: {fileID: 777325992}
+  - component: {fileID: 777325993}
   - component: {fileID: 777325991}
   m_Layer: 0
   m_Name: Monster2
@@ -34872,7 +34887,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -34891,7 +34906,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777325989}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d14b48317de4164da7b8f5edb3be168, type: 3}
   m_Name: 
@@ -34903,6 +34918,19 @@ MonoBehaviour:
   - {fileID: 1763809252}
   - {fileID: 725109786}
   - {fileID: 219151572}
+--- !u!114 &777325993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777325989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cea8bba189c08c459184a027cee1a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 22357883}
 --- !u!1001 &778697054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47775,7 +47803,7 @@ Transform:
   m_GameObject: {fileID: 1044026578}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.5, y: -0.00000166893, z: 27.999992}
-  m_LocalScale: {x: 16.09944, y: 1, z: 13.402046}
+  m_LocalScale: {x: 18, y: 1, z: 18}
   m_Children: []
   m_Father: {fileID: 324211421}
   m_RootOrder: 0
@@ -49242,7 +49270,7 @@ Transform:
   m_GameObject: {fileID: 1075859695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.5, y: -0.0000017881393, z: 30}
-  m_LocalScale: {x: 16.100481, y: 1, z: 13.5999}
+  m_LocalScale: {x: 18, y: 1, z: 18}
   m_Children: []
   m_Father: {fileID: 1208146843}
   m_RootOrder: 0
@@ -83311,6 +83339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1808353766}
   - component: {fileID: 1808353768}
+  - component: {fileID: 1808353769}
   - component: {fileID: 1808353767}
   m_Layer: 0
   m_Name: Monster1
@@ -83344,7 +83373,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -83363,7 +83392,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808353765}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d14b48317de4164da7b8f5edb3be168, type: 3}
   m_Name: 
@@ -83375,6 +83404,19 @@ MonoBehaviour:
   - {fileID: 1957414790}
   - {fileID: 802962862}
   - {fileID: 310496816}
+--- !u!114 &1808353769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808353765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cea8bba189c08c459184a027cee1a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 22357883}
 --- !u!1001 &1814614748
 PrefabInstance:
   m_ObjectHideFlags: 0
