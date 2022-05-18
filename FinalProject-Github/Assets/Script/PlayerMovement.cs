@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGround;
 
+    AudioSource[] arraysound;
+    AudioSource footstep;
+    AudioSource runstep;
+
     public float walk_speed = 8f;
     public float run_speed = 18f;
 
@@ -19,7 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        
+        arraysound = GetComponents<AudioSource>();
+        footstep = arraysound[0];
+        runstep = arraysound[1];
     }
 
     // Update is called once per frame
@@ -38,24 +44,43 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftShift)){
             controller.Move(movement * run_speed * Time.deltaTime );
-        }else{
+        }
+        else{
             controller.Move(movement * walk_speed * Time.deltaTime );
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) == false)
         {
+            if (!footstep.isPlaying)
+            {
+                footstep.Play();
+            }
+            if (runstep.isPlaying)
+            {
+                runstep.Stop();
+            }
             InvokeRepeating("ShakeCharacter", 0.1f, 0.5f);
             InvokeRepeating("ShakeCharacter2", 0.2f, 0.5f);
         }
         else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
-            InvokeRepeating("ShakeCharacter", 0f, 0.005f);
-            InvokeRepeating("ShakeCharacter2", 0.01f, 0.005f);
+            InvokeRepeating("ShakeCharacter", 0.01f, 0.05f);
+            InvokeRepeating("ShakeCharacter2", 0.02f, 0.05f);
+            if (footstep.isPlaying)
+            {
+                footstep.Stop();                
+            }
+            if (!runstep.isPlaying)
+            {
+                runstep.Play();
+            }
         }
         else
         {
             CancelInvoke("ShakeCharacter");
             CancelInvoke("ShakeCharacter2");
+            footstep.Stop();
+            runstep.Stop();
         }
         
 
@@ -66,10 +91,25 @@ public class PlayerMovement : MonoBehaviour
 
     void ShakeCharacter()
     {
-        velocity.y = 1f;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            velocity.y = 3f;
+        }
+        else
+        {
+            velocity.y = 1f;
+        }
     }
     void ShakeCharacter2()
     {
-        velocity.y = -3f;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            velocity.y = -5f;
+        }
+        else
+        {
+            velocity.y = -3f;
+        }
+        
     }
 }
