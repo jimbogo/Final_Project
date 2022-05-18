@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     public float groundDistance = 0.4f;
 
+    private int GemCounter = 0;
+
     bool isGround;
 
     AudioSource[] arraysound;
@@ -110,6 +112,13 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -3f;
         }
-        
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Gem")
+        {
+            GemCounter = GemCounter + 1;
+            Debug.Log(GemCounter);
+        }
     }
 }
