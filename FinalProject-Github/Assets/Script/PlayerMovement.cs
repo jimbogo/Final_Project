@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
 
     private int GemCounter = 0;
+    public Text count;
 
     bool isGround;
 
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         arraysound = GetComponents<AudioSource>();
         footstep = arraysound[0];
         runstep = arraysound[1];
+        count.text = "0";
     }
 
     // Update is called once per frame
@@ -118,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Gem")
         {
             GemCounter = GemCounter + 1;
+            count.text = GemCounter.ToString();
             Debug.Log(GemCounter);
         }
     }
