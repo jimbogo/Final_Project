@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class UIManagement : MonoBehaviour
 {
     public void nextscene(){
+
         SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame(){
+        
+        Application.Quit();
     }
 }
