@@ -27,34 +27,36 @@ public class AnimationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if(isAnimated)
-        {
-            if(isRotating)
+        if(!PauseGame.GameIsPaused){
+            if(isAnimated)
             {
-                transform.Rotate(rotationAngle * rotationSpeed * Time.deltaTime);
+                if(isRotating)
+                {
+                    transform.Rotate(rotationAngle * rotationSpeed * Time.deltaTime);
+                }
+
+                if(isFloating)
+                {
+                    floatTimer += Time.deltaTime;
+                    Vector3 moveDir = new Vector3(0.0f, 0.0f, floatSpeed);
+                    transform.Translate(moveDir);
+
+                    if (goingUp && floatTimer >= floatRate)
+                    {
+                        goingUp = false;
+                        floatTimer = 0;
+                        floatSpeed = -floatSpeed;
+                    }
+
+                    else if(!goingUp && floatTimer >= floatRate)
+                    {
+                        goingUp = true;
+                        floatTimer = 0;
+                        floatSpeed = +floatSpeed;
+                    }
+                }       
             }
-
-            if(isFloating)
-            {
-                floatTimer += Time.deltaTime;
-                Vector3 moveDir = new Vector3(0.0f, 0.0f, floatSpeed);
-                transform.Translate(moveDir);
-
-                if (goingUp && floatTimer >= floatRate)
-                {
-                    goingUp = false;
-                    floatTimer = 0;
-                    floatSpeed = -floatSpeed;
-                }
-
-                else if(!goingUp && floatTimer >= floatRate)
-                {
-                    goingUp = true;
-                    floatTimer = 0;
-                    floatSpeed = +floatSpeed;
-                }
-            }       
         }
+        
 	}
 }

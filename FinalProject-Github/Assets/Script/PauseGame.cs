@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -50,5 +51,16 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public AudioMixer audioMixer;
+
+    public void SetVolume (float volume){
+
+        audioMixer.SetFloat("Volume", volume);
+    }
+
+    public void SetMouseSensitive(float val){
+        Mouselook.mouseSensitivity = val;
     }
 }
