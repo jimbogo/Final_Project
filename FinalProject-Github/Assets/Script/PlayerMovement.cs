@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,31 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundcheck;
     public LayerMask groundMask;
     public float groundDistance = 0.4f;
+
+    public Vector3 Player_initial_pos;
+    public Quaternion Initial_Rotation;
+
+    public GameObject Mon1;
+    public Vector3 Mon1_Ini_Pos;
+    public Quaternion Mon1_Rot;
+    public GameObject Mon2;
+    public Vector3 Mon2_Ini_Pos;
+    public Quaternion Mon2_Rot;
+    public GameObject Mon3;
+    public Vector3 Mon3_Ini_Pos;
+    public Quaternion Mon3_Rot;
+
+    public GameObject MiniMap;
+    
+    private int Player_Life = 3;
+    public GameObject dead;
+    public PlayableDirector deadAnimation;
+    public GameObject Life;
+    public PlayableDirector lifeAnimation;
+    public GameObject X1;
+    public GameObject X2;
+    public GameObject X3;
+    private float LastTime;
 
     private int GemCounter = 0;
     public Text count;
@@ -31,6 +57,17 @@ public class PlayerMovement : MonoBehaviour
         footstep = arraysound[0];
         runstep = arraysound[1];
         count.text = "0";
+        dead.SetActive(false);
+        Life.SetActive(false);
+        Player_initial_pos = this.transform.position;
+        Initial_Rotation = this.transform.rotation;
+        Mon1_Ini_Pos = Mon1.transform.position;
+        Mon1_Rot = Mon1.transform.rotation;
+        Mon2_Ini_Pos = Mon2.transform.position;
+        Mon2_Rot = Mon2.transform.rotation;
+        Mon3_Ini_Pos = Mon3.transform.position;
+        Mon3_Rot = Mon3.transform.rotation;
+        Debug.Log(Player_initial_pos);
     }
 
     // Update is called once per frame
@@ -122,7 +159,44 @@ public class PlayerMovement : MonoBehaviour
         {
             GemCounter = GemCounter + 1;
             count.text = GemCounter.ToString();
-            Debug.Log(GemCounter);
         }
+        if(other.gameObject.tag == "Monster")
+        {
+            Player_Life = Player_Life - 1;    
+            dead.SetActive(true);
+            MiniMap.SetActive(false);
+            deadAnimation.Play();
+            deadAnimation.stopped += DeadStopped;
+            Debug.Log(Player_Life);
+        }
+    }
+    void DeadStopped(PlayableDirector director)
+    {
+        dead.SetActive(false);
+        Life.SetActive(true);
+        lifeAnimation.Play();
+        if(Player_Life == 2)
+        {
+            if(lifeAnimation.time >= 3 && LastTime < 3)
+            {
+                lifeAnimation.Pause();
+            }
+        }else if(Player_Life == 1)
+        {
+            X2.SetActive(true);
+        }else if(Player_Life == 0)
+        {
+            X3.SetActive(true);
+        }
+        lifeAnimation.stopped += LifeStopped;
+    }
+    void LifeStopped(PlayableDirector director)
+    {
+        Life.SetActive(false);
+        MiniMap.SetActive(true);
+        this.transform.SetPositionAndRotation(new Vector3(-6.4f, 1.03f, 13.3f), Initial_Rotation);
+        Mon1.transform.SetPositionAndRotation(Mon1_Ini_Pos, Mon1_Rot);
+        Mon2.transform.SetPositionAndRotation(Mon2_Ini_Pos, Mon2_Rot);
+        Mon3.transform.SetPositionAndRotation(Mon3_Ini_Pos, Mon3_Rot);
     }
 }
