@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public Quaternion Mon3_Rot;
 
     public GameObject MiniMap;
-    
-    private int Player_Life = 3;
+
+    public static int Player_Life = 3;
     public GameObject dead;
     public PlayableDirector deadAnimation;
     public GameObject Life;
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     public float run_speed = 18f;
 
     Vector3 velocity;
-    public float gravity =-19.6f;
+    public float gravity = -19.6f;
 
     void Start()
     {
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         Mon2_Rot = Mon2.transform.rotation;
         Mon3_Ini_Pos = Mon3.transform.position;
         Mon3_Rot = Mon3.transform.rotation;
-        Debug.Log(Player_initial_pos);
+        Debug.Log(Mon1_Ini_Pos);
     }
 
     // Update is called once per frame
@@ -75,7 +75,8 @@ public class PlayerMovement : MonoBehaviour
     {
         isGround = Physics.CheckSphere(groundcheck.position, groundDistance, groundMask);
 
-        if(isGround && velocity.y < 0){
+        if (isGround && velocity.y < 0)
+        {
             velocity.y = -2f;
         }
 
@@ -84,11 +85,13 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movement = transform.right * x + transform.forward * z;
 
-        if(Input.GetKey(KeyCode.LeftShift)){
-            controller.Move(movement * run_speed * Time.deltaTime );
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            controller.Move(movement * run_speed * Time.deltaTime);
         }
-        else{
-            controller.Move(movement * walk_speed * Time.deltaTime );
+        else
+        {
+            controller.Move(movement * walk_speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) == false)
@@ -110,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             InvokeRepeating("ShakeCharacter2", 0.02f, 0.05f);
             if (footstep.isPlaying)
             {
-                footstep.Stop();                
+                footstep.Stop();
             }
             if (!runstep.isPlaying)
             {
@@ -124,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
             footstep.Stop();
             runstep.Stop();
         }
-        
+
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -160,9 +163,9 @@ public class PlayerMovement : MonoBehaviour
             GemCounter = GemCounter + 1;
             count.text = GemCounter.ToString();
         }
-        if(other.gameObject.tag == "Monster")
+        if (other.gameObject.tag == "Monster")
         {
-            Player_Life = Player_Life - 1;    
+            Player_Life = Player_Life - 1;
             dead.SetActive(true);
             MiniMap.SetActive(false);
             deadAnimation.Play();
@@ -175,19 +178,21 @@ public class PlayerMovement : MonoBehaviour
         dead.SetActive(false);
         Life.SetActive(true);
         lifeAnimation.Play();
-        if(Player_Life == 2)
+        /*if (Player_Life == 2)
         {
-            if(lifeAnimation.time >= 3 && LastTime < 3)
+            if (lifeAnimation.time >= 3 && LastTime < 3)
             {
                 lifeAnimation.Pause();
             }
-        }else if(Player_Life == 1)
+        }
+        else if (Player_Life == 1)
         {
             X2.SetActive(true);
-        }else if(Player_Life == 0)
+        }
+        else if (Player_Life == 0)
         {
             X3.SetActive(true);
-        }
+        }*/
         lifeAnimation.stopped += LifeStopped;
     }
     void LifeStopped(PlayableDirector director)
