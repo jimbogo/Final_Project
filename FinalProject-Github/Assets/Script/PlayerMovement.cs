@@ -129,6 +129,8 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        
     }
 
     void ShakeCharacter()
@@ -162,6 +164,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if(other.gameObject.tag == "Monster")
         {
+            Time.timeScale = 0f;
+            PauseGame.GameIsPaused = true;
             Player_Life = Player_Life - 1;    
             dead.SetActive(true);
             MiniMap.SetActive(false);
@@ -194,9 +198,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Life.SetActive(false);
         MiniMap.SetActive(true);
-        this.transform.SetPositionAndRotation(new Vector3(-6.4f, 1.03f, 13.3f), Initial_Rotation);
+        
+        Debug.Log("real position" + this.transform.position );
+        Debug.Log("load position" + Player_initial_pos);
+        
+        controller.enabled = false;
+        controller.transform.position = Player_initial_pos;
+        controller.enabled = true;
         Mon1.transform.SetPositionAndRotation(Mon1_Ini_Pos, Mon1_Rot);
         Mon2.transform.SetPositionAndRotation(Mon2_Ini_Pos, Mon2_Rot);
         Mon3.transform.SetPositionAndRotation(Mon3_Ini_Pos, Mon3_Rot);
+        
+        Time.timeScale = 1f;
+        PauseGame.GameIsPaused = false;
     }
 }

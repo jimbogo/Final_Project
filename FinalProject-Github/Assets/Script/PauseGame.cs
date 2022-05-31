@@ -11,13 +11,17 @@ public class PauseGame : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    public AudioMixer MonsterMixer;
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(GameIsPaused){
                 Resume();
+                
             }else{
                 Pause();
+                
             }
         }
     }
@@ -28,6 +32,8 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+        MonsterMixer.SetFloat("Monster",gamevolume);
+
     }
 
     void Pause(){
@@ -36,6 +42,7 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
+        MonsterMixer.SetFloat("Monster",-40f);
     }
 
     public void BackToMenu(){
@@ -60,7 +67,13 @@ public class PauseGame : MonoBehaviour
         audioMixer.SetFloat("Volume", volume);
     }
 
-    public void SetMouseSensitive(float val){
-        Mouselook.mouseSensitivity = val;
+    float gamevolume;
+
+    public void SetGameVolume(float volume){
+        gamevolume = volume;
+    }
+
+    public void SetMouseSensitive(float value){
+        Mouselook.mouseSensitivity = value;
     }
 }

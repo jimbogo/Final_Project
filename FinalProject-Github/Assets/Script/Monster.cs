@@ -49,6 +49,8 @@ public class Monster : MonoBehaviour
 
             Mob.SetDestination(TargetWaypoint.position);
         }
+
+        // Debug.Log(this.transform.position);
     }
 
     void Checkdistancetowaypoint(float currentdistance){
