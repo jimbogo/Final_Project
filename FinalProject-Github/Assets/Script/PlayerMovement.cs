@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject MiniMap;
     
-    private int Player_Life = 3;
+    public static int Player_Life = 6;
     public GameObject dead;
     public PlayableDirector deadAnimation;
     public GameObject Life;
@@ -166,12 +166,23 @@ public class PlayerMovement : MonoBehaviour
         {
             Time.timeScale = 0f;
             PauseGame.GameIsPaused = true;
-            Player_Life = Player_Life - 1;    
+
+            Player_Life = Player_Life - 1; 
+
             dead.SetActive(true);
             MiniMap.SetActive(false);
+
             deadAnimation.Play();
+
             deadAnimation.stopped += DeadStopped;
-            Debug.Log(Player_Life);
+
+            controller.enabled = false;
+            controller.transform.position = Player_initial_pos;
+            controller.enabled = true;
+
+            Mon1.transform.SetPositionAndRotation(Mon1_Ini_Pos, Mon1_Rot);
+            Mon2.transform.SetPositionAndRotation(Mon2_Ini_Pos, Mon2_Rot);
+            Mon3.transform.SetPositionAndRotation(Mon3_Ini_Pos, Mon3_Rot);
         }
     }
     void DeadStopped(PlayableDirector director)
@@ -179,35 +190,13 @@ public class PlayerMovement : MonoBehaviour
         dead.SetActive(false);
         Life.SetActive(true);
         lifeAnimation.Play();
-        if(Player_Life == 2)
-        {
-            if(lifeAnimation.time >= 3 && LastTime < 3)
-            {
-                lifeAnimation.Pause();
-            }
-        }else if(Player_Life == 1)
-        {
-            X2.SetActive(true);
-        }else if(Player_Life == 0)
-        {
-            X3.SetActive(true);
-        }
+        
         lifeAnimation.stopped += LifeStopped;
     }
     void LifeStopped(PlayableDirector director)
     {
         Life.SetActive(false);
         MiniMap.SetActive(true);
-        
-        Debug.Log("real position" + this.transform.position );
-        Debug.Log("load position" + Player_initial_pos);
-        
-        controller.enabled = false;
-        controller.transform.position = Player_initial_pos;
-        controller.enabled = true;
-        Mon1.transform.SetPositionAndRotation(Mon1_Ini_Pos, Mon1_Rot);
-        Mon2.transform.SetPositionAndRotation(Mon2_Ini_Pos, Mon2_Rot);
-        Mon3.transform.SetPositionAndRotation(Mon3_Ini_Pos, Mon3_Rot);
         
         Time.timeScale = 1f;
         PauseGame.GameIsPaused = false;
