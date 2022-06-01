@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         arraysound = GetComponents<AudioSource>();
         footstep = arraysound[0];
         runstep = arraysound[1];
-        count.text = "0";
+        count.text = "556";
         dead.SetActive(false);
         Life.SetActive(false);
         Player_initial_pos = this.transform.position;
@@ -130,7 +131,12 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        
+
+        // Load escapescene if collect all the gem
+        if(GemCounter == 556){
+            SceneManager.LoadScene(4);
+        }
+
     }
 
     void ShakeCharacter()
@@ -160,7 +166,8 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Gem")
         {
             GemCounter = GemCounter + 1;
-            count.text = GemCounter.ToString();
+            int left = 556 - GemCounter;
+            count.text = left.ToString();
         }
         if(other.gameObject.tag == "Monster")
         {
@@ -183,8 +190,11 @@ public class PlayerMovement : MonoBehaviour
             Mon1.transform.SetPositionAndRotation(Mon1_Ini_Pos, Mon1_Rot);
             Mon2.transform.SetPositionAndRotation(Mon2_Ini_Pos, Mon2_Rot);
             Mon3.transform.SetPositionAndRotation(Mon3_Ini_Pos, Mon3_Rot);
+
+            // Invoke("reset",5f);
         }
     }
+
     void DeadStopped(PlayableDirector director)
     {
         dead.SetActive(false);
@@ -192,13 +202,26 @@ public class PlayerMovement : MonoBehaviour
         lifeAnimation.Play();
         
         lifeAnimation.stopped += LifeStopped;
+        Debug.Log("dead event is called");
     }
+
     void LifeStopped(PlayableDirector director)
     {
-        Life.SetActive(false);
-        MiniMap.SetActive(true);
+        if(Player_Life == 3){
+            PauseGame.GameIsPaused = false;
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(3);
+        }else{
+            Debug.Log("life event is called");
+            Life.SetActive(false);
         
-        Time.timeScale = 1f;
-        PauseGame.GameIsPaused = false;
+            MiniMap.SetActive(true);
+        
+            Time.timeScale = 1f;
+            PauseGame.GameIsPaused = false;
+        }
+
+        
     }
+
 }

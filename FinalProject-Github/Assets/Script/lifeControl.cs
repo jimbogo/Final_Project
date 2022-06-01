@@ -24,20 +24,20 @@ public class lifeControl : MonoBehaviour
             X1.SetActive(false);
             X2.SetActive(false);
             X3.SetActive(false);
-            Debug.Log("have 3 life");
-        }else if(PlayerMovement.Player_Life == 3)
+            
+        }else if(PlayerMovement.Player_Life == 5)
         {
             X1.SetActive(true);
             X2.SetActive(false);
             X3.SetActive(false);
-            Debug.Log("have 2 life");
+            
         }else if(PlayerMovement.Player_Life == 4)
         {
             X1.SetActive(true);
             X2.SetActive(true);
             X3.SetActive(false);
-            Debug.Log("have 1 life");
-        }else if(PlayerMovement.Player_Life == 5)
+            
+        }else if(PlayerMovement.Player_Life == 3)
         {
             X1.SetActive(true);
             X2.SetActive(true);
